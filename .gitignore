@@ -1,0 +1,62 @@
+# === Python / Django ===
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+*.pot
+*.pyc
+
+# Django specific
+db.sqlite3
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.db-journal
+*.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+*.mo
+
+# Migrations (optional: wenn du sie nicht tracken willst)
+**/migrations/
+!**/migrations/__init__.py
+
+# Virtual environments
+env/
+venv/
+ENV/
+.VENV/
+.venv/
+env.bak/
+venv.bak/
+
+# Secret config
+.env
+*.env
+
+# === Node / Next.js ===
+node_modules/
+.next/
+out/
+dist/
+build/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local server exports (z. B. `next export`)
+export/
+
+# === System / Editor ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# === PostgreSQL (falls Dump-Dateien) ===
+*.dump
+*.sql
