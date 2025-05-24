@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Ärztliche Bescheinigung über die Eignungsbeurteilung</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 12pt;
+        line-height: 1.5;
+        margin: 2cm;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .title {
+        font-size: 16pt;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .subtitle {
+        font-size: 14pt;
+        margin-bottom: 20px;
+      }
+      .section {
+        margin-bottom: 20px;
+      }
+      .section-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .field {
+        margin-bottom: 10px;
+      }
+      .field-label {
+        font-weight: bold;
+      }
+      .checkbox {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 1px solid #000;
+        margin-right: 5px;
+      }
+      .checkbox.checked {
+        background-color: #000;
+      }
+      .footer {
+        margin-top: 40px;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+        text-align: center;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="title">Unfallkasse Baden-Württemberg</div>
+      <div>Fachbereich Feuerwehren Hilfeleistungen Brandschutz</div>
+      <div>Sachgebiet Feuerwehren und Hilfeleistungsorganisationen</div>
+      <div>Stand: 26.10.2022 (Erläuterungen siehe Folgeseiten)</div>
+      <div>FBFHB-011</div>
+    </div>
+
+    <div class="section">
+      <table>
+        <tr>
+          <td class="field-label">Familienname:</td>
+          <td>{{ patient.nachname }}</td>
+        </tr>
+        <tr>
+          <td class="field-label">Vorname:</td>
+          <td>{{ patient.vorname }}</td>
+        </tr>
+        <tr>
+          <td class="field-label">Geburtsdatum:</td>
+          <td>{{ patient.geburtsdatum|date:"d.m.Y" }}</td>
+        </tr>
+        <tr>
+          <td class="field-label">Feuerwehr:</td>
+          <td>{{ feuerwehr.name }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        1. Eignungsbeurteilung (Zutreffendes ankreuzen)
+      </div>
+      <div class="field">
+        <span>Für Tätigkeiten unter Atemschutzgeräten der Gerätegruppe</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="field">
+        <span class="field-label"
+          >Datum der Eignungsbeurteilung (Tag/Monat/Jahr):</span
+        >
+        <span>{{ untersuchung.untersuchungsdatum|date:"d.m.Y" }}</span>
+      </div>
+      <div class="field">
+        <span
+          class="checkbox {% if untersuchung.erstuntersuchung %}checked{% endif %}"
+        ></span>
+        <span>Erste Eignungsbeurteilung</span>
+        <span
+          class="checkbox {% if untersuchung.nachuntersuchung %}checked{% endif %}"
+        ></span>
+        <span>Erneute Eignungsbeurteilung</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Ergebnis der Eignungsbeurteilung:</div>
+      <div>
+        Die oder der oben genannte Feuerwehrangehörige ist für die unter Nr. 1
+        gekennzeichnete Tätigkeit
+      </div>
+      <div class="field">
+        <span
+          class="checkbox {% if untersuchung.bewertung == 'JA' %}checked{% endif %}"
+        ></span>
+        <span>geeignet</span>
+      </div>
+      <div class="field">
+        <span
+          class="checkbox {% if untersuchung.bewertung == 'NEIN' %}checked{% endif %}"
+        ></span>
+        <span>nicht geeignet</span>
+      </div>
+      <div class="field">
+        <span
+          class="checkbox {% if untersuchung.bewertung == 'BEDINGT' %}checked{% endif %}"
+        ></span>
+        <span
+          >geeignet unter folgenden Voraussetzungen (z. B. Bereitstellung
+          geeigneter Maskenbrille):</span
+        >
+        {% if untersuchung.bemerkungen %}
+        <div>{{ untersuchung.bemerkungen }}</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">2. Arbeitsmedizinische Vorsorge</div>
+      <div class="field">
+        <span class="checkbox checked"></span>
+        <span
+          >Arbeitsmedizinische Vorsorge wegen der unter Nr. 1 aufgeführten
+          Tätigkeit wurde gemeinsam mit der Eignungsbeurteilung gemäß § 7 (1)
+          DGUV Vorschrift 49 „Feuerwehren" durchgeführt.</span
+        >
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">
+        3. Zeitpunkt der nächsten Eignungsbeurteilung spätestens
+        (Tag/Monat/Jahr):
+      </div>
+      <div>{{ untersuchung.naechste_untersuchung|date:"d.m.Y" }}</div>
+    </div>
+
+    <div class="footer">
+      <table>
+        <tr>
+          <td>Datum</td>
+          <td>Stempel, Unterschrift der Ärztin/des Arztes</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
